@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Калькулятор среднего арифметического</title>
+    <style>
+        body {
+            background-color: #fff;
+            color: #000;
+            text-align: center;
+            font-size: calc(10px + 2vmin); /* Адаптивный размер шрифта */
+        }
+        .circle-button {
+            border-radius: 50%;
+            width: 10vmin; /* Адаптивная ширина */
+            height: 10vmin; /* Адаптивная высота */
+            color: #000;
+            line-height: 10vmin; /* Адаптивная высота строки */
+            text-align: center;
+            margin: 1vmin; /* Адаптивный отступ */
+            background-color: #fff;
+        }
+        #button1 {border: 3px solid #8B0000;}
+        #button2 {border: 3px solid #FF0000;}
+        #button3 {border: 3px solid #FFFF00;}
+        #button4 {border: 3px solid #008000;}
+        #button5 {border: 3px solid #800080;}
+        .button-row {
+            display: flex;
+            justify-content: center;
+        }
+        .clear-button, .arrow-button {
+            width: 20vmin; /* Адаптивная ширина */
+            height: 10vmin; /* Адаптивная высота */
+            color: #000;
+            line-height: 50px;
+            text-align: center;
+            margin: 5px;
+            border-radius: 10px;
+            background-color: #fff;
+            border: 3px solid #000;
+        }
+        #placeholder {
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="average">Среднее: </h1>
+    <p id="numbers"></p>
+    <p id="placeholder"></p>
+    <div class="button-row">
+        <div id="button1" class="circle-button" onclick="addNumber(1)">1</div>
+        <div id="button2" class="circle-button" onclick="addNumber(2)">2</div>
+        <div id="button3" class="circle-button" onclick="addNumber(3)">3</div>
+        <div id="button4" class="circle-button" onclick="addNumber(4)">4</div>
+        <div id="button5" class="circle-button" onclick="addNumber(5)">5</div>
+    </div>
+    <div class="button-row">
+        <div class="arrow-button" onclick="removeLast()">←</div>
+        <div class="clear-button" onclick="clearAll()">Очистить</div>
+    </div>
+    <script>
+        var numbers = [];
+
+        function addNumber(num) {
+            numbers.push(num);
+            document.getElementById('numbers').innerText = numbers.join(' ');
+            calculateAverage();
+            document.getElementById('placeholder').style.height = '0px';
+        }
+
+        function calculateAverage() {
+            var sum = numbers.reduce((a, b) => a + b, 0);
+            var avg = sum / numbers.length;
+            document.getElementById('average').innerText = 'Среднее: ' + avg.toFixed(2);
+        }
+
+        function clearAll() {
+            numbers = [];
+            document.getElementById('numbers').innerText = '';
+            document.getElementById('average').innerText = 'Среднее: ';
+            document.getElementById('placeholder').style.height = '20px';
+        }
+
+        function removeLast() {
+            numbers.pop();
+            document.getElementById('numbers').innerText = numbers.join(' ');
+            calculateAverage();
+            if (numbers.length === 0) {
+                document.getElementById('placeholder').style.height = '20px';
+            }
+        }
+    </script>
+</body>
+</html>
